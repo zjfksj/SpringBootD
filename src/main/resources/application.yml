@@ -1,0 +1,41 @@
+server:
+#端口号
+  port: 9999
+  context-path: /springbootD
+#jetty配置，acceptors线程只需要1-2个，selectors线程配置2～4个
+  jetty:
+    acceptors: 2
+    selectors: 4
+spring:
+#模板引擎
+    thymeleaf:
+        prefix: classpath:/templates/
+        suffix: .html
+        encoding: utf-8
+        mode: LEGACYHTML5
+        cache: false
+#阿里的druid
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/naon2?characterEncoding=UTF-8 
+        username: root
+        password: 
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20 
+#映射的xml文件
+mybatis:
+   mapper-locations: classpath:mapper/*.xml
+   #别名
+   type-aliases-package: com.zj.entity

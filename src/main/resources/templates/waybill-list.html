@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport"
+        content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" th:href="@{/css/font.css}" />
+    <link rel="stylesheet" th:href="@{/css/xadmin.css}" />
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{/js/xadmin.js}"></script>
+    <script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="x-nav">
+        <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">演示</a>
+            <a>
+                <cite>导航元素</cite></a>
+        </span>
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+            href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+        <div class="layui-row">
+            <form class="layui-form layui-col-md12 x-so" th:action="@{/tbWaybill/Waybilllist}" method="POST"
+                id="chaxunForm">
+                <!-- <input class="layui-input" placeholder="开始日" name="start" id="start" />
+          <input class="layui-input" placeholder="截止日" name="end" id="end" /> -->
+                <input id="rows" name="indexPage" type="hidden" th:value="${indexPage}" />
+                <input id="rows" name="stauts" type="hidden" th:value="${stautsM}" />
+                <input type="text" name="username" placeholder="请输入运单编号" autocomplete="off" class="layui-input"
+                    th:value="${username}" />
+                <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            </form>
+        </div>
+        <xblock>
+            <a class="layui-btn" th:href="@{'/tbQing/Manual_review?stauts='+${stautsM}}"><i
+                    class="layui-icon"></i>清单查询</a>
+            <a class="layui-btn" th:href="@{'/tbOrders/orderslist?stauts='+${stautsM}}"><i
+                    class="layui-icon"></i>订单查询</a>
+            <a class="layui-btn" th:href="@{'/tbPay/Paylist?stauts='+${stautsM}}"><i class="layui-icon"></i>支付单查询</a>
+            <span class="x-right" style="line-height:40px">共有数据：<span th:text="${count}"></span>条</span>
+        </xblock>
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <!-- <sapn th:if="${stautsM} ne 6 ">
+                        <sapn th:if="${stautsM } ne 7">
+                            <sapn th:if="${stautsM } ne 8">
+                                <th>
+                                    <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
+                                            class="layui-icon">&#xe605;</i></div>
+                                </th>
+                            </sapn>
+                        </sapn>
+                    </sapn> -->
+                    <th>运单编号</th>
+                    <th>物流企业检验检疫备案编号</th>
+                    <th>物流企业名称</th>
+                    <th>发货人</th>
+                    <th>收货人</th>
+                    <th>收货地址</th>
+                    <th>创建时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <tr th:each="tw:${tbWaybillL}">
+                    <!-- <td>
+                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'> <i class="layui-icon">&#xe605;</i></div>
+                </td> -->
+                    <td th:text="${tw.waybillNo}"></td>
+                    <td th:text="${tw.wlqycodeinsp}"></td>
+                    <td th:text="${tw.wlqyname}"></td>
+                    <td th:text="${tw.sender}"></td>
+                    <td th:text="${tw.receiver}"></td>
+                    <td th:text="${tw.address}"></td>
+                    <td th:text="${tw.createTime}"></td>
+                    <!-- <sapn th:if="${stautsM} ne 6 ">
+                        <sapn th:if="${stautsM } ne 7">
+                            <sapn th:if="${stautsM } ne 8">
+                                <td class="td-manage">
+                                    <a title="编辑" th:href="@{'/tbQing/admin_edit?qingNo='+${tq.qingNo}}">
+                                        <i class="layui-icon">&#xe642;</i>
+                                    </a>
+                                </td>
+                            </sapn>
+                        </sapn>
+                    </sapn> -->
+                    <!--     onclick="x_admin_show('编辑','/springbootD/tbQing/admin_edit?qingNo='+${tq.qingNo}+'')" 
+                     <a title="删除" onclick="member_del(this,'{{tq.qingNo}}')" href="javascript:;">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
+                 -->
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page">
+            <div>
+                <span th:text="${indexPage}+'/'+${countPage}+'页'"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span>
+                    <a th:href="@{'javascript:chaxun(1)'}" class="prev">首页</a>
+                </span>
+                <span th:if="${indexPage} gt 1">
+                    <a th:href="@{'javascript:chaxun('+${indexPage-1}+')'}" class="num">上一页</a>
+                </span>
+                <sapn th:if="${indexPage} lt ${countPage}">
+                    <a th:href="@{'javascript:chaxun('+${indexPage+1}+')'}" class="num">下一页</a>
+                </sapn>
+                <sapn>
+                    <a th:href="@{'javascript:chaxun('+${countPage}+')'}" class="next">末页</a>
+                </sapn>
+                <!-- <sapn>
+                    <a class="layui-btn" th:href="@{'/tbQing/Manual_review?stauts='+${stautsM}}">返回</a>
+                </sapn> -->
+                <!-- <a class="prev" href="">&lt;&lt;</a>
+            <a class="num" href="">1</a>
+            <span class="current">2</span>
+            <a class="num" href="">3</a>
+            <a class="num" href="">489</a>
+            <a class="next" href="">&gt;&gt;</a> -->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:inline="javascript">
+        function chaxun(rows) {
+            $("#rows").val(rows);
+            $("#chaxunForm").submit();
+        }
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+        });
+
+        /*用户-停用*/
+        function member_stop(obj, id) {
+            layer.confirm('确认要停用吗？', function (index) {
+
+                if ($(obj).attr('title') == '启用') {
+
+                    //发异步把用户状态进行更改
+                    $(obj).attr('title', '停用')
+                    $(obj).find('i').html('&#xe62f;');
+
+                    $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                    layer.msg('已停用!', { icon: 5, time: 1000 });
+
+                } else {
+                    $(obj).attr('title', '启用')
+                    $(obj).find('i').html('&#xe601;');
+                    $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                    layer.msg('已启用!', { icon: 5, time: 1000 });
+                }
+
+            });
+        }
+
+        /*用户-删除*/
+        function member_del(obj, qingNo) {
+            var a = confirm('确认要删除吗？');
+            //发异步删除数据
+            if (a) {
+                $.ajax({
+                    data: {
+                        "qingNo": qingNo
+                    },
+                    type: 'POST',
+                    url: '/springbootD/tbQing/delQing',
+                    dataType: 'text',
+                    success: function (data) {
+                        alert(data);
+                        $(obj).parents("tr").remove();
+                        //window.location.href="";
+                    },
+                    error: function (data) {
+                        console.log(data.msg);
+                    },
+                });
+            }
+        }
+        function delAll(argument) {
+
+
+            layer.confirm('确认要删除吗？' + data, function (index) {
+                //捉到所有被选中的，发异步进行删除
+                layer.msg('删除成功', { icon: 1 });
+                $(".layui-form-checked").not('.header').parents('tr').remove();
+            });
+        }
+    </script>
+    <script>var _hmt = _hmt || []; (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script>
+</body>
+
+</html>

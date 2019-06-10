@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zj.mapper.TbEnterpriseMapper" >
+  <resultMap id="BaseResultMap" type="com.zj.entity.TbEnterprise" >
+    <id column="cbecodeinsp" property="cbecodeinsp" jdbcType="VARCHAR" />
+    <result column="Cbename" property="cbename" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="VARCHAR" />
+    <result column="Audit_type" property="auditType" jdbcType="VARCHAR" />
+    <result column="stauts" property="stauts" jdbcType="VARCHAR" />
+    <result column="Person" property="person" jdbcType="VARCHAR" />
+    <result column="Create_Time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+ 
+</mapper>
